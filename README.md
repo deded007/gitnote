@@ -2,7 +2,7 @@ http://git-scm.com/book/zh-tw/v1/
 
 + 二個版本特定檔案的差異
 
-用difftool 後面接sha1:檔案路徑
+用difftool 後面接sha1:檔案路徑 git difftool old:path new:path
 >git difftool Orgv1:Layouts/website/templates/org/detail.html Orgv2:Layouts/website/templates/org/detail.html AccupassV3
 
 --

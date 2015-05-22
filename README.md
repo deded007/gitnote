@@ -28,6 +28,7 @@ http://git-scm.com/book/zh-tw/v1/
 
 +更新現在的分支
 
+>git merge --no-ff "upstream/[branchname]"
 >git pull --rebase upstream [branchname]
 
 --

@@ -34,6 +34,18 @@ http://git-scm.com/book/zh-tw/v1/
 
 --
 
++ 合併分支
+
+>git merge --no-ff "upstream/[branchname]"
+
+--
+
++ 捉全部的remote repository
+
+>git fetch --all
+
+--
+
 
 G   H   I   J
  \ /     \ /

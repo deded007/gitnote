@@ -36,8 +36,11 @@ http://git-scm.com/book/zh-tw/v1/
 
 + 合併分支
 
->git merge --no-ff "upstream/[branchname]"
+>git rebase upstream/[branchname]
+盡量用這個，與主線常同步更新
 
+>git merge --no-ff "upstream/[branchname]"
+二條線差異很大，衝突很大時用這個
 --
 
 + 捉全部的remote repository

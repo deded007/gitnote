@@ -1,3 +1,10 @@
+
++ git extention記錄密碼
+
+win+r，在运行中输入：%USERPROFILE%
+找到其中的.gitconfig文件，找到[credential]项，在下面添加如下一行：
+helper = store
+
 http://git-scm.com/book/zh-tw/v1/
 
 + 二個版本特定檔案的差異

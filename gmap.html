@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script src="http://maps.googleapis.com/maps/api/js">
+    </script>
+
+    <script>
+        var img1 = 'http://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png' ;
+        var img2 = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+		var img3 = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+        var points = [
+		{ 'name': '下龜山橋', 'lng': 121.551620, 'lat': 24.908000,
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=1140H087','img':img2},
+		{ 'name': '攬勝橋', 'lng': 121.551330752409, 'lat': 24.8617356778683, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=1140H095', 'img': img1
+		},
+		{ 'name': '福山一號橋', 'lng': 121.503514, 'lat': 24.800456, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=1140H010', 'img': img1
+		},
+		{ 'name': '翡翠水庫放流口', 'lng': 121.576398649008, 'lat': 24.909201730786, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=SITE4', 'img': img3
+		},
+		{ 'name': '翡翠水庫大壩', 'lng': 121.578896, 'lat': 24.908980, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=SITE5', 'img': img3
+		},
+		{ 'name': '北勢溪', 'lng': 121.712892298477, 'lat': 24.9356236578622, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=SITE1', 'img': img2
+		},
+		{ 'name': '魚逮魚崛溪', 'lng': 121.705320547254, 'lat': 24.932617241202, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=SITE2', 'img': img2
+		},
+		{ 'name': '金瓜寮溪', 'lng': 121.691856183566, 'lat': 24.9292496924912, 
+		'url': 'http://satis.ncdr.nat.gov.tw/kml/turbidity.html?stno=SITE3', 'img': img3
+		}
+        ]
+        var markers = [];
+        var infowindow = new google.maps.InfoWindow();
+
+        var myCenter = new google.maps.LatLng(24.874204, 121.677435);
+
+        function initialize() {
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            for (var i = points.length - 1; i >= 0; i--) {
+                var point = points[i];
+
+                var latlng = new google.maps.LatLng(23.973875, 120.982024); //台灣緯度Latitude、經度Longitude：23.973875,120.982024
+                var mapOptions = {
+                    zoom: 5,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                markers[i] = new google.maps.Marker({
+                    position: new google.maps.LatLng(point.lat, point.lng),
+                    icon: point.img,
+                    map: map,
+                    title: point.name,
+                    url: point.url
+                });
+
+                //設定 各標記點Marker的click事件
+                google.maps.event.addListener(markers[i], 'click', function () {
+                    ShowInfo(map, this);
+                });
+            }
+
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
+        function ShowInfo(mapObj, point) {//開啟資訊視窗
+            if (infowindow) { infowindow.close(); }
+            infowindow.setContent(InfoContent(point));
+            infowindow.open(mapObj, point);
+        }
+        function InfoContent(point) {
+            var html = "<h3>" + point.title + "</h3><iframe width='400' height='300' scrolling='no'  frameborder='0' src='" + point.url + "'/>";
+            return html;
+        }
+    </script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #googleMap {
+            width: 80%;
+            height: 100%;
+            float:right;
+        }
+        #text {
+            width: 20%;
+            height: 100%;
+            float:left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="text">新店溪流域濁度監測<br/>
+ 
+ 綠色：濁度值 < 1000 NTU<br/>
+ 黃色：濁度值 介於 1000~6000 NTU<br/>
+ 紅色：濁度值 > 6000 NTU<br/></div>
+        <div id="googleMap"></div>
+    </div>
+</body>
+</html>
